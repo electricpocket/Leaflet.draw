@@ -565,7 +565,7 @@ L.Draw.Polyline = L.Draw.Feature.extend({
 		// calculate the distance from the last fixed point to the mouse position
 		distance = this._measurementRunningTotal + currentLatLng.distanceTo(previousLatLng);
 		// calculate the bearing from the last fixed point to the mouse position
-		bearing = L.GeometryUtil.bearing(currentLatLng.lat,currentLatLng.lng,previousLatLng.lat,previousLatLng.lng);
+		bearing = L.GeometryUtil.bearing(previousLatLng.lat,previousLatLng.lng,currentLatLng.lat,currentLatLng.lng);
 		
 		return L.GeometryUtil.readableDistance(distance, bearing, this.options.metric);
 	},
@@ -1817,17 +1817,17 @@ L.GeometryUtil = L.extend(L.GeometryUtil || {}, {
 		if (isMetric) {
 			// show metres when distance is < 1km, then show km
 			if (distance > 1000) {
-				distanceStr = (distance  / 1000).toFixed(2) + ' km at ' + bearing;
+				distanceStr = (distance  / 1000).toFixed(2) + ' km at ' + bearing.toFixed(0)+'°';
 			} else {
-				distanceStr = Math.ceil(distance) + ' m at ' + bearing;
+				distanceStr = Math.ceil(distance) + ' m at ' + bearing.toFixed(0)+'°';
 			}
 		} else {
 			distance *= 1.09361;
 
 			if (distance > 1760) {
-				distanceStr = (distance / 1760).toFixed(2) + ' miles at' + bearing;
+				distanceStr = (distance / 1760).toFixed(2) + ' miles at' + bearing.toFixed(0)+'°';
 			} else {
-				distanceStr = Math.ceil(distance) + ' yd at' + bearing;
+				distanceStr = Math.ceil(distance) + ' yd at' + bearing.toFixed(0)+'°';
 			}
 		}
 
