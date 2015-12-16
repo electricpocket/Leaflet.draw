@@ -560,12 +560,14 @@ L.Draw.Polyline = L.Draw.Feature.extend({
 	_getMeasurementString: function () {
 		var currentLatLng = this._currentLatLng,
 			previousLatLng = this._markers[this._markers.length - 1].getLatLng(),
-			distance;
+			distance, bearing;
 
 		// calculate the distance from the last fixed point to the mouse position
 		distance = this._measurementRunningTotal + currentLatLng.distanceTo(previousLatLng);
+		// calculate the bearing from the last fixed point to the mouse position
+		bearing = currentLatLng.bearingTo(previousLatLng);
 
-		return L.GeometryUtil.readableDistance(distance, this.options.metric);
+		return L.GeometryUtil.readableDistance(distance, bearing, this.options.metric);
 	},
 
 	_showErrorTooltip: function () {
@@ -939,7 +941,7 @@ L.Draw.Circle = L.Draw.SimpleShape.extend({
 
 			this._tooltip.updateContent({
 				text: this._endLabelText,
-				subtext: showRadius ? L.drawLocal.draw.handlers.circle.radius + ': ' + L.GeometryUtil.readableDistance(radius, useMetric) : ''
+				subtext: showRadius ? L.drawLocal.draw.handlers.circle.radius + ': ' + L.GeometryUtil.readableDistance(radius,0, useMetric) : ''
 			});
 		}
 	}
@@ -1809,23 +1811,23 @@ L.GeometryUtil = L.extend(L.GeometryUtil || {}, {
 		return areaStr;
 	},
 
-	readableDistance: function (distance, isMetric) {
+	readableDistance: function (distance,bearing, isMetric) {
 		var distanceStr;
 
 		if (isMetric) {
 			// show metres when distance is < 1km, then show km
 			if (distance > 1000) {
-				distanceStr = (distance  / 1000).toFixed(2) + ' km';
+				distanceStr = (distance  / 1000).toFixed(2) + ' km at ' + bearing;
 			} else {
-				distanceStr = Math.ceil(distance) + ' m';
+				distanceStr = Math.ceil(distance) + ' m at ' + bearing;
 			}
 		} else {
 			distance *= 1.09361;
 
 			if (distance > 1760) {
-				distanceStr = (distance / 1760).toFixed(2) + ' miles';
+				distanceStr = (distance / 1760).toFixed(2) + ' miles at' + bearing;
 			} else {
-				distanceStr = Math.ceil(distance) + ' yd';
+				distanceStr = Math.ceil(distance) + ' yd at' + bearing;
 			}
 		}
 
