@@ -1844,12 +1844,17 @@ L.GeometryUtil = L.extend(L.GeometryUtil || {}, {
      *
      * @return int - The bearing between 0 and 360
      */
-    bearing : function (lat1,lng1,lat2,lng2) {
+    bearing : function (alat1,alng1,alat2,alng2) {
+    	var lat1,lng1,lat2,lng2;
+    	lat1 = this._toRad(alat1);
+    	lng1 = this._toRad(alng1);
+    	lat2 = this._toRad(alat2);
+    	lng2 = this._toRad(alng2);
         var dLon = (lng2-lng1);
         var y = Math.sin(dLon) * Math.cos(lat2);
         var x = Math.cos(lat1)*Math.sin(lat2) - Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLon);
         var brng = this._toDeg(Math.atan2(y, x));
-        return ((brng + 360) % 360);
+        return 360 - ((brng + 360) % 360);
     },
 
    /**
