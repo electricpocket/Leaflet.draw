@@ -1822,16 +1822,16 @@ L.GeometryUtil = L.extend(L.GeometryUtil || {}, {
 		
 			// show metres when distance is < 1km, then show km
 			if (distance > 1000) {
-				distanceStr = (distance  / 1000).toFixed(2) + ' km' + bearing.toFixed(0)+'°';
+				distanceStr = (distance  / 1000).toFixed(2) + ' km' + bearingStr;
 			} else {
-				distanceStr = Math.ceil(distance) + ' m' + bearing.toFixed(0)+'°';
+				distanceStr = Math.ceil(distance) + ' m' + bearingStr;
 			}
 		} else {
 			var nm = distance/1852;
 
-			if (nm > 10.0) distanceStr = nm.toFixed(1) + ' NM' + bearing.toFixed(0)+'°';
-			else if (nm > 1.0) distanceStr = nm.toFixed(2) + ' NM' + bearing.toFixed(0)+'°';
-			else distanceStr = nm.toFixed(2) + ' NM' + bearing.toFixed(0)+'°';
+			if (nm > 10.0) distanceStr = nm.toFixed(1) + ' NM' + bearingStr;
+			else if (nm > 1.0) distanceStr = nm.toFixed(2) + ' NM' + bearingStr;
+			else distanceStr = nm.toFixed(2) + ' NM' + bearingStr;
 			
 		}
 		
