@@ -1033,15 +1033,12 @@ L.Draw.Marker = L.Draw.Feature.extend({
 		else {
 			latlng = this._mouseMarker.getLatLng();
 			this._marker.setLatLng(latlng);
-		}
-		
-		if (true) {
-			
 			this._tooltip.updateContent({
-				text: "Lat/Lng",
-				subtext: latlng.lat.toFixed(4) + ',' + latlng.lng.toFixed(4)
+				text:latlng.lat.toFixed(4) + ',' + latlng.lng.toFixed(4) ,
+				subtext: "Lat/Lng"
 			});
 		}
+
 	},
 
 	_onClick: function () {
