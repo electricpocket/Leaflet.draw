@@ -1934,7 +1934,7 @@ L.GeometryUtil = L.extend(L.GeometryUtil || {}, {
         }
             
     }
-
+    
 });
 
 L.Util.extend(L.LineUtil, {
