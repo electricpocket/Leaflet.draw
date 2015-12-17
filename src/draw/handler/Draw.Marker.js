@@ -83,6 +83,10 @@ L.Draw.Marker = L.Draw.Feature.extend({
 		else {
 			latlng = this._mouseMarker.getLatLng();
 			this._marker.setLatLng(latlng);
+			this._tooltip.updateContent({
+				text:latlng.lat.toFixed(4) + ',' + latlng.lng.toFixed(4) ,
+				subtext: "Lat/Lng"
+			});
 		}
 	},
 

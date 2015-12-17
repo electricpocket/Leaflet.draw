@@ -369,16 +369,18 @@ L.Draw.Polyline = L.Draw.Feature.extend({
 			this._measurementRunningTotal += distance * (added ? 1 : -1);
 		}
 	},
-
+	
 	_getMeasurementString: function () {
 		var currentLatLng = this._currentLatLng,
 			previousLatLng = this._markers[this._markers.length - 1].getLatLng(),
-			distance;
+			distance, bearing;
 
 		// calculate the distance from the last fixed point to the mouse position
 		distance = this._measurementRunningTotal + currentLatLng.distanceTo(previousLatLng);
-
-		return L.GeometryUtil.readableDistance(distance, this.options.metric);
+		// calculate the bearing from the last fixed point to the mouse position
+		bearing = L.GeometryUtil.bearing(previousLatLng.lat,previousLatLng.lng,currentLatLng.lat,currentLatLng.lng);
+		
+		return L.GeometryUtil.readableDistance(distance, bearing, this.options.metric);
 	},
 
 	_showErrorTooltip: function () {
