@@ -115,4 +115,5 @@ L.GeometryUtil = L.extend(L.GeometryUtil || {}, {
     _toDeg : function(rad) {
         return rad * 180 / Math.PI;
     }
+    
 });
