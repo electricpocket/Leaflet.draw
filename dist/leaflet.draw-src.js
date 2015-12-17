@@ -1035,7 +1035,7 @@ L.Draw.Marker = L.Draw.Feature.extend({
 			this._marker.setLatLng(latlng);
 		}
 		
-		if (this._isDrawing) {
+		if (true) {
 			
 			this._tooltip.updateContent({
 				text: "Lat/Lng",
