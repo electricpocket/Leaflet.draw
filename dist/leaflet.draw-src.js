@@ -1041,6 +1041,7 @@ L.Draw.Marker = L.Draw.Feature.extend({
 				text: "Lat/Lng",
 				subtext: latlng.lat.toFixed(4) + ',' + latlng.lng.toFixed(4)
 			});
+		}
 	},
 
 	_onClick: function () {
