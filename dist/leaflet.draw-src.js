@@ -941,7 +941,7 @@ L.Draw.Circle = L.Draw.SimpleShape.extend({
 
 			this._tooltip.updateContent({
 				text: this._endLabelText,
-				subtext: showRadius ? L.drawLocal.draw.handlers.circle.radius + ': ' + L.GeometryUtil.readableDistance(radius,0, useMetric) : ''
+				subtext: showRadius ? L.drawLocal.draw.handlers.circle.radius + ': ' + L.GeometryUtil.readableDistance(radius,-1, useMetric) : ''
 			});
 		}
 	}
@@ -1812,24 +1812,29 @@ L.GeometryUtil = L.extend(L.GeometryUtil || {}, {
 	},
 
 	readableDistance: function (distance,bearing, isMetric) {
-		var distanceStr;
-
+		var distanceStr,bearingStr;
+		bearingStr='';
+		if (bearing >= 0)
+		{ 
+			bearingStr = ' at '+bearing.toFixed(0)+'°';
+		}
 		if (isMetric) {
+		
 			// show metres when distance is < 1km, then show km
 			if (distance > 1000) {
-				distanceStr = (distance  / 1000).toFixed(2) + ' km at ' + bearing.toFixed(0)+'°';
+				distanceStr = (distance  / 1000).toFixed(2) + ' km' + bearing.toFixed(0)+'°';
 			} else {
-				distanceStr = Math.ceil(distance) + ' m at ' + bearing.toFixed(0)+'°';
+				distanceStr = Math.ceil(distance) + ' m' + bearing.toFixed(0)+'°';
 			}
 		} else {
-			distance *= 1.09361;
+			var nm = distance/1852;
 
-			if (distance > 1760) {
-				distanceStr = (distance / 1760).toFixed(2) + ' miles at' + bearing.toFixed(0)+'°';
-			} else {
-				distanceStr = Math.ceil(distance) + ' yd at' + bearing.toFixed(0)+'°';
-			}
+			if (nm > 10.0) distanceStr = nm.toFixed(1) + ' NM' + bearing.toFixed(0)+'°';
+			else if (nm > 1.0) distanceStr = nm.toFixed(2) + ' NM' + bearing.toFixed(0)+'°';
+			else distanceStr = nm.toFixed(2) + ' NM' + bearing.toFixed(0)+'°';
+			
 		}
+		
 
 		return distanceStr;
 	},
