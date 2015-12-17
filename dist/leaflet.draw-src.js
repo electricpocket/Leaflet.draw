@@ -1920,7 +1920,7 @@ L.GeometryUtil = L.extend(L.GeometryUtil || {}, {
         
          return label;
         
-    }
+    },
 
     formatLatLong: function (lat,lng,oneline)
     {
