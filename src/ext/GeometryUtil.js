@@ -114,6 +114,53 @@ L.GeometryUtil = L.extend(L.GeometryUtil || {}, {
      */
     _toDeg : function(rad) {
         return rad * 180 / Math.PI;
+    },
+    
+    formatPositionTextForLatitude: function (latitude , longitude, oneLine)
+    {
+        var degrees = Math.floor(latitude);
+        var decimal = Math.abs(latitude - degrees);
+        var minutesandseconds = decimal * 60.0;
+        var minutes = Math.floor(minutesandseconds);
+        var seconds = (minutesandseconds - minutes) * 60.0;
+        //double seconds = decimal * 3600 - minutes * 60;
+        var lat = degrees + "°" + minutes +"'" + seconds.toFixed(2) +'" N';
+                       
+        if (latitude < 0.0) lat = -degrees + "°" + minutes +"'" + seconds.toFixed(2) +'" S';
+        //Add N and S and E and W labels
+        degrees = Math.floor(longitude);
+        decimal = Math.abs(longitude - degrees);
+        var minutesandseconds = decimal * 60.0;
+        var minutes = Math.floor(minutesandseconds);
+        var seconds = (minutesandseconds - minutes) * 60.0;
+        
+        longt = degrees + "°" + minutes +"'" + seconds.toFixed(2) +'" E';
+        
+        if (longitude < 0.0)
+            longt = -degrees + "°" + minutes +"'" + seconds.toFixed(2) +'" W';
+        
+        var label = lat+","+longt;
+        if (! oneLine)
+        {
+           label = lat+"<br>"+longt; 
+           
+        }
+        
+         return label;
+        
+    },
+
+    formatLatLong: function (lat,lng,oneline)
+    {
+        var latitude = Number(lat);
+        var longitude = Number(lng);
+        if (decimalDegrees == 1)
+            return latitude.toFixed(4) +","+ longitude.toFixed(4);
+        else
+        {
+            return formatPositionTextForLatitude(latitude , longitude, oneline);
+        }
+            
     }
     
 });
