@@ -1922,7 +1922,7 @@ L.GeometryUtil = L.extend(L.GeometryUtil || {}, {
         
     },
     
-    function formatPositionTextForDecimalMinutes(latitude , longitude, oneLine)
+    formatPositionTextForDecimalMinutes: function (latitude , longitude, oneLine)
     {
         var degrees = Math.trunc(latitude);
         var decimal = Math.abs(latitude - degrees);
