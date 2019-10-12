@@ -1964,7 +1964,7 @@ L.GeometryUtil = L.extend(L.GeometryUtil || {}, {
             return latitude.toFixed(4) +","+ longitude.toFixed(4);
         else
         {
-        	if (target =="sara_beachley") return formatPositionTextForDecimalMinutes(alatitude , alongitude, oneline);
+        	if (target =="sara_beachley") return formatPositionTextForDecimalMinutes(latitude , longitude, oneline);
         	else return formatPositionTextForLatitude(latitude , longitude, oneline);
         }
             
